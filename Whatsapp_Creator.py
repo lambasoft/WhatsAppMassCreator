@@ -91,10 +91,11 @@ if __name__ == "__main__":
 		number = 0
 		if(result['success']):
 			number = result['number']
+			time.sleep(10) # Do not change that or your account will get automatically banned
 			print "Fetched number: " + number
 		else:
 			print "Error '" + result['error'] + "' fetching number, retrying ..."
-			time.sleep(5) # Do not change that or your account will get automatically banned
+			time.sleep(10) # Do not change that or your account will get automatically banned
 			max_tries -= 1 # Do not change that or your account will get automatically banned
 			continue
 
@@ -102,8 +103,8 @@ if __name__ == "__main__":
 		if(result['success']):
 			print "Code successfully sent to " + number
 		else:
-			print "Error sending SMS retrying with new number..."
-			time.sleep(5) # Do not change that or your account will get automatically banned
+			print "Error '" + result['error'] + "' sending SMS retrying with new number..."
+			time.sleep(10) # Do not change that or your account will get automatically banned
 			max_tries -= 1 # Do not change that or your account will get automatically banned
 			continue
 
@@ -120,8 +121,9 @@ if __name__ == "__main__":
 
 		if(not sms_code):
 			print "Failed receiving SMS Code, retrying with new number..."
-			time.sleep(5) # Do not change that or your account will get automatically banned
+			time.sleep(10) # Do not change that or your account will get automatically banned
 			max_tries -= 1 # Do not change that or your account will get automatically banned
+			counter+=1
 			continue
 	
 		result = json.loads(apiAction("wapVerCode","&code={0}&number={1}&proxy={2}".format(sms_code,number,proxy)))
@@ -132,6 +134,7 @@ if __name__ == "__main__":
 			f.close()
 			account_count -= 1
 			max_tries = 3
+			counter+=1
 		else:
 			print "Error: " + result['error']
 		
