@@ -106,6 +106,7 @@ if __name__ == "__main__":
 			print "Error '" + result['error'] + "' sending SMS retrying with new number..."
 			time.sleep(10) # Do not change that or your account will get automatically banned
 			max_tries -= 1 # Do not change that or your account will get automatically banned
+			counter+=1
 			continue
 
 		sms_code = ""
