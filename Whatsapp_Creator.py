@@ -112,6 +112,7 @@ if __name__ == "__main__":
 			time.sleep(10) # Do not change that or your account will get automatically banned
 			result = json.loads(apiAction("getMobile","&pid=3"))
 			if(result['success']):
+				counter['tries'] = 0
 				number = result['number']
 				print "Fetched number: " + number
 			else:
@@ -140,7 +141,7 @@ if __name__ == "__main__":
 		sms_code = ""
 		while (not sms_code and counter['sms_tries'] < 5):
 			print "[{0}] Attempting to receive SMS ...".format(counter['sms_tries']+1)
-			time.sleep(10) # Do not change that or your account will get automatically banned
+			time.sleep(15) # Do not change that or your account will get automatically banned
 			result = json.loads(apiAction("getSMS","&pid=3&number="+number))
 			if(result['success'] and result['received']):
 				sms_code = find_between(result['message'].lower(),"whatsapp code",".").strip()
